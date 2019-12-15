@@ -32,6 +32,11 @@ p:first-child {
   margin-left: 1%;
   margin-bottom: 1%;
 }
+
+.searchButton {
+  margin: 0 3px;
+}
+
 .foodTilesCont {
   display: flex;
   flex-wrap: wrap;
@@ -48,4 +53,32 @@ p:first-child {
 
 .foodTile:nth-child(5n + 1) {
   margin-left: 1%;
+}
+
+.PageSelectorCont {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1%;
+  justify-content: center;
+}
+
+.thisPage {
+  background-color: black;
+  color: white;
+}
+
+.pageButton {
+  margin-right: 3px;
+  border-radius: 3px;
+  border: 2px solid black;
+  padding-bottom: 1px;
+  font-weight: bold;
+}
+
+.ellipsis {
+  margin-right: 2px;
+}
+
+.fa-ellipsis-h {
+  vertical-align: sub;
 }

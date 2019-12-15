@@ -19,44 +19,48 @@ const FoodTile = props => {
     return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase()
   }
 
-  const PascalCase = s => {
-    if (s.length === 0) return ''
+  // Returns string with all words' first letters only capitalized, rest in lower case
+  // const pascalCase = s => {
+  //   if (s.length === 0) return ''
+  //   return s
+  //     .split(' ')
+  //     .map(str => sentenceCase(str))
+  //     .join(' ')
+  // }
+
+  // Capitalize each word in incoming string s, except words with length x or less
+  const pascalCaseExcept = (s, x) => {
     return s
       .split(' ')
-      .map(str => sentenceCase(str))
+      .map(m => {
+        return m.length <= x ? m : sentenceCase(m)
+      })
       .join(' ')
   }
 
-  const capitalWords = s => {
-    return s
-      .split(' ')
-      .map(m => sentenceCase(m))
-      .join(' ')
-  }
-  //
-  const deScream = str => {
-    return UpperToLowerCaseRatio(str) > 0
-      ? PascalCase(str.toLowerCase())
-      : capitalWords(str)
+  // Converts string into PascalCase if more than half of capitals are used
+  const quietPlease = str => {
+    return UpperToLowerCaseRatio(str) > 0 ? pascalCaseExcept(str, 2) : str
   }
 
-  const firstXWords = (str, x) => {
+  const firstXWords = (str, x, delim) => {
     return (
       str
-        .split(', ')
+        .split(delim)
         .filter((el, i) => {
           return i < x
         })
-        .join(', ') + ', ...'
+        .join(delim) + (str.split(delim).length > x ? delim + '...' : '')
     )
   }
   // prettier-ignore
   return <div className="foodTilesCont">
     {props.foodData && props.foodData.map((fd, i) => {
-      return <section className="foodTile" key={i}><p>{deScream(fd.description)}</p> 
-                {fd.gtinUpc && <p>UPC: {fd.gtinUpc}</p>}
-                {fd.brandOwner && <p>Brand: {deScream(fd.brandOwner)}</p>}
-                {fd.ingredients && <p>Ingredients: {firstXWords(sentenceCase(fd.ingredients),5)}</p>}
+      return <section className="foodTile" key={i}><p>{(props.currentPageNumber -1) * 50 + (i+1)}. {quietPlease(fd.description)}</p> 
+                {fd.gtinUpc && <p>GTIN/UPC: {fd.gtinUpc}</p>}
+                {fd.brandOwner && <p>Brand: {quietPlease(fd.brandOwner)}</p>}
+                {fd.ingredients && <p>Ingredients: {firstXWords(sentenceCase(fd.ingredients), 3, ', ')}</p>}
+                {typeof fd.ingredients === 'undefined' && fd.additionalDescriptions && <p>Description: {firstXWords(fd.additionalDescriptions, 3, '; ')}</p>}
              </section>})}
   </div>
 }
