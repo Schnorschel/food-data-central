@@ -104,7 +104,7 @@ const FoodDataCentral = () => {
           <option name="database" value="SR Legacy">SR Legacy</option>
         </select>
         <button name="Search" className="searchButton" onClick={handleNewSearch}>Search</button>
-        {typeof noOfResults === 'undefined' ? '' : noOfResults > 0 ? <span className="resultStats">{noOfResults} result{plurify(noOfResults)} {noOfResultPages === 1 ? 'on' : 'across'} {noOfResultPages} page{plurify(noOfResultPages)}</span> : 'No results'}
+        {typeof noOfResults === 'undefined' ? '' : noOfResults > 0 ? <section className="resultStats">{noOfResults} result{plurify(noOfResults)} {noOfResultPages === 1 ? 'on' : 'across'} {noOfResultPages} page{plurify(noOfResultPages)}</section> : 'No results'}
       </section>
       {typeof currentPageNumber !== 'undefined' && currentPageNumber > 0  && <PageSelector currentPage={currentPageNumber} allPages={noOfResultPages} handleButtonClick={updatePageNumber} />}
       {/* prettier-ignore */}
