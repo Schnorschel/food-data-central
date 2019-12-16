@@ -23,26 +23,30 @@ const FoodDetail = props => {
     <section className="NutritionCont">
       {nutrientData && (
         <table className="nutrientCont">
-          <tr>
-            <th colspan="2" className="foodTitle">
-              {nutrientData.description}
-            </th>
-          </tr>
-          <tr>
-            <td colspan="2" className="foodCaption">
-              (per 100 g)
-            </td>
-          </tr>
-          {nutrientData.foodNutrients.map((nutrient, index) => {
-            return (
-              <tr>
-                <td className="tableLabel">{nutrient.nutrient.name}:</td>
-                <td className="tableValue">
-                  {nutrient.amount} {nutrient.nutrient.unitName}
-                </td>
-              </tr>
-            )
-          })}
+          <thead>
+            <tr>
+              <th colSpan="2" className="foodTitle">
+                {nutrientData.description}
+              </th>
+            </tr>
+            <tr>
+              <td colSpan="2" className="foodCaption">
+                (per 100 g)
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {nutrientData.foodNutrients.map((nutrient, index) => {
+              return (
+                <tr key={index}>
+                  <td className="tableLabel">{nutrient.nutrient.name}:</td>
+                  <td className="tableValue">
+                    {nutrient.amount} {nutrient.nutrient.unitName}
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
         </table>
       )}
     </section>

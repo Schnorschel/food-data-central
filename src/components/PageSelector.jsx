@@ -43,8 +43,8 @@ const PageSelector = props => {
       {pages.map((el, i) => {
         return (<>
           {el.label === '...' ? <span className="ellipsis" key={i}><i className="fas fa-ellipsis-h"></i></span> : 
-           el.label === '<' ? <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}><i className="fas fa-chevron-left"></i></button> :
-           el.label === '>' ? <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}><i className="fas fa-chevron-right"></i></button> :
+          //  el.label === '<' ? <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}><i className="fas fa-chevron-left"></i></button> :
+          //  el.label === '>' ? <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}><i className="fas fa-chevron-right"></i></button> :
           <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}>{el.label}</button> //  === '<' ? <i class="fas fa-chevron-left"></i> : el.label === '>' ? <i class="fas fa-chevron-right"></i> : el.label
           }
         </>)
