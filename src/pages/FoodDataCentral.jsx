@@ -4,7 +4,7 @@ import FoodTile from '../components/FoodTile'
 import PageSelector from '../components/PageSelector'
 
 const FoodDataCentral = () => {
-  const [searchTerm, setSearchTerm] = useState('Cinnamon Roll')
+  const [searchTerm, setSearchTerm] = useState()
   const [foodData, setFoodData] = useState([])
   const [foodDetailData, setFoodDetailData] = useState()
   const [currentPageNumber, setCurrentPageNumber] = useState()
