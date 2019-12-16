@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const FoodTile = props => {
   // Returns a number that expresses the ratio between the count of
@@ -56,7 +57,7 @@ const FoodTile = props => {
   // prettier-ignore
   return <div className="foodTilesCont">
     {props.foodData && props.foodData.map((fd, i) => {
-      return <section className="foodTile" key={i}><p>{(props.currentPageNumber -1) * 50 + (i+1)}. {quietPlease(fd.description)}</p> 
+      return <section className="foodTile" key={i}><p>{(props.currentPageNumber -1) * 50 + (i+1)}. <Link to={`/foodDetail/${fd.fdcId}`}>{quietPlease(fd.description)}</Link></p> 
                 {fd.gtinUpc && <p>GTIN/UPC: {fd.gtinUpc}</p>}
                 {fd.brandOwner && <p>Brand: {quietPlease(fd.brandOwner)}</p>}
                 {fd.ingredients && <p>Ingredients: {firstXWords(sentenceCase(fd.ingredients), 3, ', ')}</p>}

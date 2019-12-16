@@ -43,16 +43,13 @@ p:first-child {
 }
 
 .foodTile {
-  width: 18.8%;
-  margin-right: 1%;
+  width: 98%;
+  /* margin-right: 1%; */
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px;
-  margin-bottom: 1%;
-}
-
-.foodTile:nth-child(5n + 1) {
-  margin-left: 1%;
+  /* margin-bottom: 1%; */
+  margin: 0 1% 1%;
 }
 
 .PageSelectorCont {
@@ -81,4 +78,69 @@ p:first-child {
 
 .fa-ellipsis-h {
   vertical-align: sub;
+}
+
+.NutritionCont {
+  margin-left: 1%;
+}
+
+.nutrientCont {
+  /* border: solid 1px black; */
+}
+
+.tableLabel {
+  text-align: right;
+  font-weight: bold;
+  vertical-align: top;
+}
+
+.tableValue {
+  vertical-align: bottom;
+}
+
+.foodTitle {
+  font-size: 1.5rem;
+}
+
+.foodCaption {
+  text-align: center;
+}
+
+@media (min-width: 400px) and (max-width: 799px) {
+  .foodTile {
+    width: 48.5%;
+    margin: 0;
+    margin-right: 1%;
+    margin-bottom: 1%;
+  }
+
+  .foodTile:nth-child(2n + 1) {
+    margin-left: 1%;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 1199px) {
+  .foodTile {
+    width: 32%;
+    margin: 0;
+    margin-right: 1%;
+    margin-bottom: 1%;
+  }
+
+  .foodTile:nth-child(3n + 1) {
+    margin-left: 1%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .foodTile {
+    width: 18.8%;
+    margin: 0;
+    margin-right: 1%;
+    margin-bottom: 1%;
+  }
+
+  .foodTile:nth-child(5n + 1) {
+    margin-left: 1%;
+  }
 }

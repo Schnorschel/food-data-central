@@ -17,7 +17,7 @@ const FoodDataCentral = () => {
     const apiKey = 'https://api.nal.usda.gov/fdc/v1/search?api_key=BG5c7pT5v0GRIWmEskVFQ5fyKKonSdy9zs31JvQa'
     // prettier-ignore
     console.log( 'Attempting to request food data from: ' + apiKey + '. Searching for: ' + searchTerm )
-    let data = JSON.stringify({ generalSearchInput: `${searchTerm}` })
+    // let data = JSON.stringify({ generalSearchInput: `${searchTerm}` })
     // prettier-ignore
     // let headers = JSON.stringify({ headers: { "Content-Type": "application/json" } })
     const resp = await axios.post(
@@ -97,7 +97,7 @@ const FoodDataCentral = () => {
       <section className="searchTermCont">
         <input type="text" name="SearchTerm" value={searchTerm} onChange={updateSearchTerm} />
         <select name="database" defaultChecked="All" onChange={e => setDatabase(e.target.value)} >
-          <option name="database" value="All">All</option>
+          <option name="database" value="All">All Databases</option>
           <option name="database" value="Survey (FNDDS)">Survey (FNDDS)</option>
           <option name="database" value="Foundation">Foundation</option>
           <option name="database" value="Branded">Branded</option>
