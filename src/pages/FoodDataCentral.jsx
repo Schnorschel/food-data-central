@@ -12,33 +12,41 @@ const FoodDataCentral = () => {
   const [noOfResultPages, setNoOfResultPages] = useState()
   const [database, setDatabase] = useState()
 
-  const getFoodData = async () => {
+  const getFoodData = async p => {
+    const page =
+      typeof p === 'undefined'
+        ? typeof currentPageNumber === 'undefined'
+          ? 1
+          : currentPageNumber
+        : p
     // prettier-ignore
-    const apiKey = 'https://api.nal.usda.gov/fdc/v1/search?api_key=BG5c7pT5v0GRIWmEskVFQ5fyKKonSdy9zs31JvQa'
+    // const apiKey = 'https://api.nal.usda.gov/fdc/v1/search?api_key=BG5c7pT5v0GRIWmEskVFQ5fyKKonSdy9zs31JvQa'
+    const apiKey = `https://localhost:5001/fdc/v1/Proxy?searchTerm=${searchTerm}&pageNumber=${page}`
     // prettier-ignore
     console.log( 'Attempting to request food data from: ' + apiKey + '. Searching for: ' + searchTerm )
     // let data = JSON.stringify({ generalSearchInput: `${searchTerm}` })
     // prettier-ignore
     // let headers = JSON.stringify({ headers: { "Content-Type": "application/json" } })
-    const resp = await axios.post(
-      apiKey,
-      {
-        generalSearchInput: searchTerm,
-        requireAllWords: true,
-        pageNumber: currentPageNumber,
-        includeDataTypes: {
-          'Survey (FNDDS)': database === 'All' || database === 'Survey (FNDDS)' ? true : false,
-          Foundation: database === 'All' || database === 'Foundation' ? true : false,
-          Branded: database === 'All' || database === 'Branded' ? true : false,
-          'SR Legacy': database === 'All' || database === 'SR Legacy' ? true : false
-        },
-      },
-      { headers: { 'Content-Type': 'application/json' } }
-    ) // ,
+    const resp = await axios.get(
+      apiKey) //,
+    // {
+    //   generalSearchInput: searchTerm,
+    //   requireAllWords: true,
+    //   pageNumber: typeof currentPageNumber === 'undefined' || currentPageNumber == null ? 1 : currentPageNumber,
+    //   includeDataTypes: {
+    //     'Survey (FNDDS)': database === 'All' || database === 'Survey (FNDDS)' ? true : false,
+    //     Foundation: database === 'All' || database === 'Foundation' ? true : false,
+    //     Branded: database === 'All' || database === 'Branded' ? true : false,
+    //     'SR Legacy': database === 'All' || database === 'SR Legacy' ? true : false
+    //   },
+    // },
+    // { headers: { 'Content-Type': 'application/json' } }
+    // ) // ,
     if (resp.status !== 200) {
       console.log(resp.status)
       return
     }
+    console.dir(resp.data)
     setFoodData(resp.data.foods)
     setCurrentPageNumber(resp.data.foodSearchCriteria.pageNumber)
     setNoOfResults(resp.data.totalHits)
@@ -56,31 +64,32 @@ const FoodDataCentral = () => {
     setFoodDetailData(...foodDetailData, resp.data)
   }
 
-  useEffect(() => {
-    setFoodDetailData([])
-    // prettier-ignore
-    if (typeof foodData === 'undefined' || foodData == null || foodData.length === 0) return
-    console.log('Would now get food detail data for: ')
-    console.dir(foodData)
-    // foodData.foreach(fd => {
-    //   getFoodNutritionData(fd.fdcId)
-    // })
-  }, [foodData])
+  // useEffect(() => {
+  //   setFoodDetailData([])
+  //   // prettier-ignore
+  //   if (typeof foodData === 'undefined' || foodData == null || foodData.length === 0) return
+  //   console.log('Would now get food detail data for: ')
+  //   console.dir(foodData)
+  //   // foodData.foreach(fd => {
+  //   //   getFoodNutritionData(fd.fdcId)
+  //   // })
+  // }, [foodData])
 
-  useEffect(() => {
-    if (!isNaN(currentPageNumber)) {
-      getFoodData()
-    }
-  }, [currentPageNumber])
+  // useEffect(() => {
+  //   if (!isNaN(currentPageNumber)) {
+  //     getFoodData()
+  //   }
+  // }, [currentPageNumber])
 
   const updatePageNumber = e => {
     const val = e.target.value
     setCurrentPageNumber(val)
+    getFoodData(val)
   }
 
   const handleNewSearch = () => {
     setCurrentPageNumber(1)
-    getFoodData()
+    getFoodData(1)
   }
 
   const updateSearchTerm = e => {
