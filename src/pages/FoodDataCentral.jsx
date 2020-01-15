@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import FoodTile from '../components/FoodTile'
 import PageSelector from '../components/PageSelector'
+import config from '../config'
 
 const FoodDataCentral = () => {
   const [searchTerm, setSearchTerm] = useState()
@@ -21,14 +22,14 @@ const FoodDataCentral = () => {
         : p
     // prettier-ignore
     // const apiKey = 'https://api.nal.usda.gov/fdc/v1/search?api_key=BG5c7pT5v0GRIWmEskVFQ5fyKKonSdy9zs31JvQa'
-    const apiKey = `https://localhost:5001/fdc/v1/Proxy?searchTerm=${searchTerm}&pageNumber=${page}`
+    const apiUrl = `${config.apiServer}${config.apiFoodEP}?searchTerm=${searchTerm}&pageNumber=${page}`
     // prettier-ignore
-    console.log( 'Attempting to request food data from: ' + apiKey + '. Searching for: ' + searchTerm )
+    console.log( 'Attempting to request food data from: ' + apiUrl + '. Searching for: ' + searchTerm )
     // let data = JSON.stringify({ generalSearchInput: `${searchTerm}` })
     // prettier-ignore
     // let headers = JSON.stringify({ headers: { "Content-Type": "application/json" } })
     const resp = await axios.get(
-      apiKey) //,
+      apiUrl) //,
     // {
     //   generalSearchInput: searchTerm,
     //   requireAllWords: true,
@@ -58,8 +59,8 @@ const FoodDataCentral = () => {
   }
 
   const getFoodNutritionData = async fdcId => {
-    const apiKey = `https://api.nal.usda.gov/fdc/v1/${fdcId}?api_key=BG5c7pT5v0GRIWmEskVFQ5fyKKonSdy9zs31JvQa`
-    const resp = await axios.get(apiKey)
+    const apiUrl = `${config.apiServer}${config.apiFoodEP}/${fdcId}` //?api_key=BG5c7pT5v0GRIWmEskVFQ5fyKKonSdy9zs31JvQa`
+    const resp = await axios.get(apiUrl)
     if (resp.status !== 200) return
     setFoodDetailData(...foodDetailData, resp.data)
   }

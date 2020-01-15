@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import config from '../config'
 
 const FoodDetail = props => {
   const [nutrientData, setNutrientData] = useState()
 
   const getNutrientData = async () => {
-    const apiKey = `https://api.nal.usda.gov/fdc/v1/${props.match.params.fdcId}?api_key=BG5c7pT5v0GRIWmEskVFQ5fyKKonSdy9zs31JvQa`
+    const apiKey = `${config.apiServer}${config.apiFoodEP}/${props.match.params.fdcId}` // ?api_key=BG5c7pT5v0GRIWmEskVFQ5fyKKonSdy9zs31JvQa`
     console.log('Attempting to request data from: ' + apiKey)
     const resp = await axios.get(apiKey)
     if (resp.status != 200) {
