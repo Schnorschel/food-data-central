@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import {
-  BrowserRouter as Router,
-  Link,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom'
+// prettier-ignore
+import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom'
 import HomePage from './pages/HomePage'
+import Login from './pages/Login'
 import FoodDetail from './pages/FoodDetail'
 import FoodSearch from './pages/FoodSearch'
 import NotFound from './pages/NotFound'
+import { UserContext } from './UserContext'
 
 // prettier-ignore
 const App = () => {
   const [searchTerm, setSearchTerm] = useState()
   const [requireAllWords, setRequireAllWords] = useState('anyWord')
   const [searchNow, setSearchNow] = useState(false)
+  const [gUser, setGUser] = useState(null)
 
   return (
       <Router>
@@ -24,12 +22,10 @@ const App = () => {
           <h1 className="siteHeader">FoodData Central</h1>
           <nav>
             <ul>
+              {gUser && gUser.username && <li>{gUser.username}</li>}
               <li><Link to="/">Home</Link></li>
-              <li>Login</li>
+              <li><Link to="/Login">Login</Link></li>
               <li>Sign up</li>
-              {/* <li>
-                <Link to="/1">Page 1</Link>
-              </li> */}
             </ul>
           </nav>
           </header>
@@ -47,11 +43,13 @@ const App = () => {
           {/* <span className="searchButton"><Link to={`/Search/${searchTerm}/${requireAllWords}/1`}>Search</Link></span> */}
         </section>        
         <Switch>
-          <Route exact path="/" component={HomePage}></Route>
-          <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum" component={FoodSearch}></Route>
-          <Route exact path="/foodDetail/:fdcId" component={FoodDetail}></Route>
-          {/* <Route exact path="/2" component={Page2}></Route> */}
-          <Route path="*" component={NotFound}></Route>
+          <UserContext.Provider value={{gUser, setGUser}}>
+            <Route exact path="/" component={HomePage}></Route>
+            <Route exact path="/Login" component={Login}></Route>
+            <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum" component={FoodSearch}></Route>
+            <Route exact path="/foodDetail/:fdcId" component={FoodDetail}></Route>
+          </UserContext.Provider>
+            <Route path="*" component={NotFound}></Route>
         </Switch>
       </Router>
   )
