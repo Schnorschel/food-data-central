@@ -1,4 +1,10 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+
+const ltChevron = <FontAwesomeIcon icon={faChevronLeft} />
+const gtChevron = <FontAwesomeIcon icon={faChevronRight} />
 
 const PageSelector = props => {
   const pages = []
@@ -45,7 +51,7 @@ const PageSelector = props => {
           {el.label === '...' ? <span className="ellipsis" key={i}><i className="fas fa-ellipsis-h"></i></span> : 
           //  el.label === '<' ? <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}><i className="fas fa-chevron-left"></i></button> :
           //  el.label === '>' ? <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}><i className="fas fa-chevron-right"></i></button> :
-          <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}>{el.label}</button> //  === '<' ? <i class="fas fa-chevron-left"></i> : el.label === '>' ? <i class="fas fa-chevron-right"></i> : el.label
+          <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}>{el.label}</button> // === '<' ? ltChevron : el.label === '>' ? gtChevron : el.label}</button> //  === '<' ? <i class="fas fa-chevron-left"></i> : el.label === '>' ? <i class="fas fa-chevron-right"></i> : el.label
           }
         </>)
       })}

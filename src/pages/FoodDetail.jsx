@@ -20,33 +20,43 @@ const FoodDetail = props => {
     getNutrientData()
   }, [])
 
+  const decimalToString = decimal => {
+    let sDec = decimal.toString()
+    if (!sDec.includes('.')) sDec += '.0'
+    return sDec.split('.')
+  }
+
+  // prettier-ignore
   return (
     <section className="NutritionCont">
       {nutrientData && (
         <table className="nutrientCont">
           <thead>
             <tr>
-              <th colSpan="2" className="foodTitle">
-                {nutrientData.description}
+              <th colSpan="5" className="foodTitleCont">
+                <span className="foodTitle">{nutrientData.description}</span> <span className="foodCaption">(per 100 g)</span>
               </th>
             </tr>
-            <tr>
+            {/* <tr>
               <td colSpan="2" className="foodCaption">
                 (per 100 g)
               </td>
-            </tr>
+            </tr> */}
           </thead>
           <tbody>
-            {nutrientData.foodNutrients.map((nutrient, index) => {
-              return (
-                <tr key={index}>
-                  <td className="tableLabel">{nutrient.nutrient.name}:</td>
-                  <td className="tableValue">
-                    {nutrient.amount} {nutrient.nutrient.unitName}
-                  </td>
-                </tr>
-              )
-            })}
+            {nutrientData.foodNutrients
+              .filter(n => !isNaN(n.amount))
+              .map((nutrient, index) => {
+                return (
+                  <tr key={index}>
+                    <td className="tableLabel">{nutrient.nutrient.name}:</td>
+                    <td className="tableValueMs">{decimalToString(nutrient.amount)[0]}</td>
+                    <td className="tableDecimalPoint">{decimalToString(nutrient.amount)[1] === '0' ? '' : '.'}</td>
+                    <td className="tableValueLs">{decimalToString(nutrient.amount)[1] === '0' ? '' : decimalToString(nutrient.amount)[1]}</td>
+                    <td className="tableValueUnit">&nbsp;{nutrient.nutrient.unitName}</td>
+                  </tr>
+                )
+              })}
           </tbody>
         </table>
       )}

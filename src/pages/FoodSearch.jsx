@@ -1,30 +1,34 @@
 import React, { useState, useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import FoodTile from '../components/FoodTile'
 import PageSelector from '../components/PageSelector'
 import config from '../config'
 
-const FoodDataCentral = () => {
+const FoodSearch = props => {
   const [searchTerm, setSearchTerm] = useState()
   const [foodData, setFoodData] = useState([])
   const [foodDetailData, setFoodDetailData] = useState()
-  const [currentPageNumber, setCurrentPageNumber] = useState()
+  // prettier-ignore
+  const [currentPageNumber, setCurrentPageNumber] = useState(props.match.params.PageNum)
   const [noOfResults, setNoOfResults] = useState()
   const [noOfResultPages, setNoOfResultPages] = useState()
-  const [database, setDatabase] = useState()
+  const [database, setDatabase] = useState('All')
+  const [pageChange, setPageChange] = useState(false)
 
+  // prettier-ignore
   const getFoodData = async p => {
-    const page =
-      typeof p === 'undefined'
-        ? typeof currentPageNumber === 'undefined'
-          ? 1
-          : currentPageNumber
-        : p
-    // prettier-ignore
+    // const page = (typeof p === 'undefined') ? (typeof currentPageNumber === 'undefined') ? 1 : currentPageNumber : p
+    const page = props.match.params.PageNum
     // const apiKey = 'https://api.nal.usda.gov/fdc/v1/search?api_key=BG5c7pT5v0GRIWmEskVFQ5fyKKonSdy9zs31JvQa'
-    const apiUrl = `${config.apiServer}${config.apiFoodEP}?searchTerm=${searchTerm}&pageNumber=${page}`
+    // const tSearchTerm = encodeURI(searchTerm)
+    const tSearchTerm = encodeURI(props.match.params.SearchTerm)
+    // const tDatabase = encodeURI(database)
+    let apiUrl = `${config.apiServer}${config.apiFoodEP}?searchTerm=${tSearchTerm}&pageNumber=${page}`
+    // apiUrl = apiUrl.concat((database === 'All') ? '' : `&includeDataTypeList=${tDatabase}`)
+    apiUrl = apiUrl.concat(props.match.params.RequireAllWords === 'allWords' ? '&requireAllWords=true' : '')
     // prettier-ignore
-    console.log( 'Attempting to request food data from: ' + apiUrl + '. Searching for: ' + searchTerm )
+    console.log( 'Attempting to request food data from: ' + apiUrl) // + '. Searching for: ' + searchTerm )
     // let data = JSON.stringify({ generalSearchInput: `${searchTerm}` })
     // prettier-ignore
     // let headers = JSON.stringify({ headers: { "Content-Type": "application/json" } })
@@ -83,9 +87,11 @@ const FoodDataCentral = () => {
   // }, [currentPageNumber])
 
   const updatePageNumber = e => {
+    e.persist()
     const val = e.target.value
     setCurrentPageNumber(val)
-    getFoodData(val)
+    setPageChange(true)
+    // getFoodData(val)
   }
 
   const handleNewSearch = () => {
@@ -98,32 +104,34 @@ const FoodDataCentral = () => {
     setSearchTerm(val)
   }
 
+  useEffect(() => {
+    getFoodData(1)
+  }, [
+    props.match.params.SearchTerm,
+    props.match.params.RequireAllWords,
+    props.match.params.PageNum,
+  ])
+
+  // useEffect(() => {
+  //   console.log({ requireAllWords })
+  // }, [requireAllWords])
+
   const plurify = n => {
     return n === 1 ? '' : 's'
   }
   return (
     // prettier-ignore
     <section className="searchMain">
-      <section className="searchTermCont">
-        <input type="text" name="SearchTerm" value={searchTerm} onChange={updateSearchTerm} />
-        <select name="database" defaultChecked="All" onChange={e => setDatabase(e.target.value)} >
-          <option name="database" value="All">All Databases</option>
-          <option name="database" value="Survey (FNDDS)">Survey (FNDDS)</option>
-          <option name="database" value="Foundation">Foundation</option>
-          <option name="database" value="Branded">Branded</option>
-          <option name="database" value="SR Legacy">SR Legacy</option>
-        </select>
-        <button name="Search" className="searchButton" onClick={handleNewSearch}>Search</button>
-        {typeof noOfResults === 'undefined' ? '' : noOfResults > 0 ? <section className="resultStats">{noOfResults} result{plurify(noOfResults)} {noOfResultPages === 1 ? 'on' : 'across'} {noOfResultPages} page{plurify(noOfResultPages)}</section> : 'No results'}
-      </section>
-      {typeof currentPageNumber !== 'undefined' && currentPageNumber > 0  && <PageSelector currentPage={currentPageNumber} allPages={noOfResultPages} handleButtonClick={updatePageNumber} />}
+      {pageChange ? <Redirect to={`/Search/${props.match.params.SearchTerm}/${props.match.params.RequireAllWords}/${currentPageNumber}`} /> : null}
+      {typeof noOfResults === 'undefined' ? '' : noOfResults > 0 ? <section className="resultStats">{noOfResults} result{plurify(noOfResults)} {noOfResultPages === 1 ? 'on' : 'across'} {noOfResultPages} page{plurify(noOfResultPages)}{noOfResultPages > 200 ? ', accessing first 200 pages' : null}</section> : 'No results'}
+      {typeof currentPageNumber !== 'undefined' && currentPageNumber > 0  && <PageSelector currentPage={currentPageNumber} allPages={Math.min(noOfResultPages,200)} handleButtonClick={updatePageNumber} />}
       {/* prettier-ignore */}
       <div className="previewTilesCont">
         <FoodTile foodData={foodData} foodNutritionData={foodDetailData} currentPageNumber={currentPageNumber} />
       </div>
-      {typeof currentPageNumber !== 'undefined' && currentPageNumber > 0 && <PageSelector currentPage={currentPageNumber} allPages={noOfResultPages} handleButtonClick={updatePageNumber} />}
+      {typeof currentPageNumber !== 'undefined' && currentPageNumber > 0 && <PageSelector currentPage={currentPageNumber} allPages={Math.min(noOfResultPages, 200)} handleButtonClick={updatePageNumber} />}
     </section>
   )
 }
 
-export default FoodDataCentral
+export default FoodSearch
