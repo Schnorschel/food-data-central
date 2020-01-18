@@ -24,10 +24,11 @@ const Login = props => {
       // console.dir(err)
       // console.log('err.response:')
       // console.dir(err.response)
+      // Something went wrong, most likely wrong password, so delete the password form field
       setUser(prev => {
         return { ...prev, password: '' }
       })
-      setErrorMsg(err.response.data.message)
+      setErrorMsg(err.response.data.error || 'An unexpected error occurred.')
       return
     }
     if (resp.status !== 200) {

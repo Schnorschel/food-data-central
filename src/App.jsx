@@ -5,6 +5,9 @@ import HomePage from './pages/HomePage'
 import Login from './pages/Login'
 import FoodDetail from './pages/FoodDetail'
 import FoodSearch from './pages/FoodSearch'
+import Favorites from './pages/Favorites'
+import Logout from './pages/Logout'
+import Signup from './pages/Signup'
 import NotFound from './pages/NotFound'
 import { UserContext } from './UserContext'
 
@@ -24,13 +27,14 @@ const App = () => {
             <ul>
               {gUser && gUser.username && <li>{gUser.username}</li>}
               <li><Link to="/">Home</Link></li>
-              <li><Link to="/Login">Login</Link></li>
-              <li>Sign up</li>
+              {gUser && gUser.username && <li><Link to="/Favorites">Favorites</Link></li>}
+              {gUser && gUser.username ? <li><Link to="/Logout/u">Logout</Link></li> : <li><Link to="/Login/s">Login</Link></li>}
+              {gUser && gUser.username ? null : <li><Link to="/Signup">Sign up</Link></li>}
             </ul>
           </nav>
           </header>
           <section className="searchTermCont">
-          <input type="text" name="SearchTerm" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} onKeyPress={e => {if (e.key === 'Enter') {setSearchNow(true)}}}/>
+          <input type="text" name="SearchTerm" placeholder="Search for food..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} onKeyPress={e => {if (e.key === 'Enter') {setSearchNow(true)}}}/>
           {/* <select name="database" defaultChecked="All" onChange={e => setDatabase(e.target.value)} >
             <option name="database" value="All">All Databases</option>
             <option name="database" value="Survey (FNDDS)">Survey (FNDDS)</option>
@@ -45,8 +49,11 @@ const App = () => {
         <Switch>
           <UserContext.Provider value={{gUser, setGUser}}>
             <Route exact path="/" component={HomePage}></Route>
-            <Route exact path="/Login" component={Login}></Route>
+            <Route exact path="/" component={Favorites}></Route>
             <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum" component={FoodSearch}></Route>
+            <Route exact path="/Login/:purpose" component={Login}></Route>
+            <Route exact path="/Logout/:purpose" component={Logout}></Route>
+            <Route exact path="/Signup" component={Signup}></Route>
             <Route exact path="/foodDetail/:fdcId" component={FoodDetail}></Route>
           </UserContext.Provider>
             <Route path="*" component={NotFound}></Route>
