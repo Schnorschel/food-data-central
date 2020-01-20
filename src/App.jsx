@@ -34,7 +34,9 @@ const App = () => {
           </nav>
           </header>
           <section className="searchTermCont">
-          <input type="text" name="SearchTerm" placeholder="Search for food..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} onKeyPress={e => {if (e.key === 'Enter') {setSearchNow(true)}}}/>
+          {/* value={searchTerm} onChange={e => {e.preventDefault(); setSearchTerm(e.target.value)}}  */}
+          {/* setSearchNow(true) */}
+          <input type="text" name="SearchTerm" placeholder="Search for food..." onKeyPress={e => {if (e.key === 'Enter') {setSearchTerm(e.target.value); setSearchNow(true)}}}/>
           {/* <select name="database" defaultChecked="All" onChange={e => setDatabase(e.target.value)} >
             <option name="database" value="All">All Databases</option>
             <option name="database" value="Survey (FNDDS)">Survey (FNDDS)</option>
@@ -42,14 +44,15 @@ const App = () => {
             <option name="database" value="Branded">Branded</option>
             <option name="database" value="SR Legacy">SR Legacy</option>
           </select> */}
-          <input type="checkbox" name="requireAllWords" value="true" checked={requireAllWords === 'allWords'} onClick={e => setRequireAllWords(e.target.checked ? 'allWords' : 'anyWord')} />Require all words
+          {/* e.target.checked ? 'allWords' : 'anyWord' */}
+          <input type="checkbox" name="requireAllWords" checked={requireAllWords === 'allWords'} onChange={e => {setRequireAllWords(e.target.checked ? 'allWords' : 'anyWord')}} />Require all words
           {/* <button name="Search" className="searchButton" onClick={handleNewSearch}>Search</button> */}
           {/* <span className="searchButton"><Link to={`/Search/${searchTerm}/${requireAllWords}/1`}>Search</Link></span> */}
         </section>        
         <Switch>
           <UserContext.Provider value={{gUser, setGUser}}>
             <Route exact path="/" component={HomePage}></Route>
-            <Route exact path="/" component={Favorites}></Route>
+            <Route exact path="/Favorites" component={Favorites}></Route>
             <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum" component={FoodSearch}></Route>
             <Route exact path="/Login/:purpose" component={Login}></Route>
             <Route exact path="/Logout/:purpose" component={Logout}></Route>

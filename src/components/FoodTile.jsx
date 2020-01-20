@@ -44,6 +44,8 @@ const FoodTile = props => {
     return UpperToLowerCaseRatio(str) > 0 ? pascalCaseExcept(str, 2) : str
   }
 
+  // Crops string of words delimited with delim after x words and
+  // adds ellipsis (...) at the end if there is more content
   const firstXWords = (str, x, delim) => {
     return (
       str
