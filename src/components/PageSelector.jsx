@@ -47,13 +47,13 @@ const PageSelector = props => {
     // prettier-ignore
     <section className="PageSelectorCont">
       {pages.map((el, i) => {
-        return (<>
+        return (<React.Fragment key={i}>
           {el.label === '...' ? <span className="ellipsis" key={i}><i className="fas fa-ellipsis-h"></i></span> : 
           //  el.label === '<' ? <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}><i className="fas fa-chevron-left"></i></button> :
           //  el.label === '>' ? <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}><i className="fas fa-chevron-right"></i></button> :
           <button className={'pageButton' + (el.page === props.currentPage ? ' thisPage' : '')} key={i} value={el.page} onClick={props.handleButtonClick}>{el.label}</button> // === '<' ? ltChevron : el.label === '>' ? gtChevron : el.label}</button> //  === '<' ? <i class="fas fa-chevron-left"></i> : el.label === '>' ? <i class="fas fa-chevron-right"></i> : el.label
           }
-        </>)
+        </React.Fragment>)
       })}
     </section>
   )

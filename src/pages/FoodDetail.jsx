@@ -9,7 +9,7 @@ const FoodDetail = props => {
     const apiKey = `${config.apiServer}${config.apiFoodEP}/${props.match.params.fdcId}` // ?api_key=BG5c7pT5v0GRIWmEskVFQ5fyKKonSdy9zs31JvQa`
     console.log('Attempting to request data from: ' + apiKey)
     const resp = await axios.get(apiKey)
-    if (resp.status != 200) {
+    if (resp.status !== 200) {
       console.log(resp.status)
       return
     }

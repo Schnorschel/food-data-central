@@ -182,6 +182,26 @@ nav ul li {
   color: red;
 }
 
+.black {
+  color: black;
+}
+
+.red {
+  color: red;
+}
+
+.lightgray {
+  color: lightgray;
+}
+
+.favoriteButton {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 @media (min-width: 400px) and (max-width: 799px) {
   .foodTile {
     width: 48.5%;

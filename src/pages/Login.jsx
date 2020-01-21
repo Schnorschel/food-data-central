@@ -24,7 +24,7 @@ const Login = props => {
       // console.dir(err)
       // console.log('err.response:')
       // console.dir(err.response)
-      // Something went wrong, most likely wrong password, so delete the password form field
+      // Something went wrong, most likely wrong password, so delete the contents of the password form field
       setUser(prev => {
         return { ...prev, password: '' }
       })

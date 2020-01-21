@@ -16,11 +16,21 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState()
   const [requireAllWords, setRequireAllWords] = useState('anyWord')
   const [searchNow, setSearchNow] = useState(false)
+  const [prevSearchCount, setPrevSearchCount] = useState(0)
+  const [currSearchCount, setCurrSearchCount] = useState(0)
   const [gUser, setGUser] = useState(null)
+
+  useEffect(() => {
+    console.log(`searchTerm: ${searchTerm}`)
+  }, [searchTerm])
+
+  useEffect(() => {
+    console.log(`searchNow: ${currSearchCount}`)
+  }, [currSearchCount])
 
   return (
       <Router>
-      {searchNow ? <Redirect to={`/Search/${searchTerm}/${requireAllWords}/1`} /> : null}
+      {currSearchCount > 0 ? <Redirect key={currSearchCount} to={`/Search/${searchTerm}/${requireAllWords}/1/${currSearchCount}`} /> : null}
         <header className="rootHeader">
           <h1 className="siteHeader">FoodData Central</h1>
           <nav>
@@ -36,7 +46,7 @@ const App = () => {
           <section className="searchTermCont">
           {/* value={searchTerm} onChange={e => {e.preventDefault(); setSearchTerm(e.target.value)}}  */}
           {/* setSearchNow(true) */}
-          <input type="text" name="SearchTerm" placeholder="Search for food..." onKeyPress={e => {if (e.key === 'Enter') {setSearchTerm(e.target.value); setSearchNow(true)}}}/>
+          <input type="text" name="SearchTerm" placeholder="Search for food..." onKeyPress={e => {if (e.key === 'Enter') {console.log('Enter key pressed'); setSearchTerm(e.target.value); setCurrSearchCount(prev => prev +1)}}}/>
           {/* <select name="database" defaultChecked="All" onChange={e => setDatabase(e.target.value)} >
             <option name="database" value="All">All Databases</option>
             <option name="database" value="Survey (FNDDS)">Survey (FNDDS)</option>
@@ -53,7 +63,8 @@ const App = () => {
           <UserContext.Provider value={{gUser, setGUser}}>
             <Route exact path="/" component={HomePage}></Route>
             <Route exact path="/Favorites" component={Favorites}></Route>
-            <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum" component={FoodSearch}></Route>
+            <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum/:Rnd" component={FoodSearch}></Route>
+            {/* <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum" render={(props) => <FoodSearch {...props} key={currSearchCount} /> } ></Route> */}
             <Route exact path="/Login/:purpose" component={Login}></Route>
             <Route exact path="/Logout/:purpose" component={Logout}></Route>
             <Route exact path="/Signup" component={Signup}></Route>
