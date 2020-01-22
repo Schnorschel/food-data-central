@@ -28,7 +28,7 @@ const App = () => {
     const hours = dateTime.getHours()
     switch (true) {
       case hours < 12: return 'Morning'
-      case hours < 18: return 'Afternoon'
+      case hours < 17: return 'Afternoon'
       case hours < 24: return 'Evening'
       default: return 'Day'
     }
