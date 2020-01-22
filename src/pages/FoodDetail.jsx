@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import config from '../config'
+import { pascalCaseExcept, sentenceCase } from '../utils'
 
 // prettier-ignore
+// Hard-coded order of nutrients
 const nutrientOrder = [
   'Water','Energy', 'Protein', 'Total lipid (fat)', 'Carbohydrate, by difference', 'Fiber, total dietary',
   'Sugars, total including NLEA', 'Calcium, Ca', 'Iron, Fe', 'Magnesium, Mg', 'Phosphorus, P', 'Potassium, K', 
@@ -27,6 +29,7 @@ const FoodDetail = props => {
       console.log(resp.status)
       return
     }
+    // console.dir(resp.data)
     setNutrientData(resp.data)
   }
 
@@ -48,14 +51,12 @@ const FoodDetail = props => {
           <thead>
             <tr>
               <th colSpan="5" className="foodTitleCont">
-                <span className="foodTitle">{nutrientData.description}</span> <span className="foodCaption">(per 100 g)</span>
+                <span className="foodTitle">{pascalCaseExcept(nutrientData.description,1)}</span> <span className="foodCaption">(per 100 g)</span>
               </th>
             </tr>
-            {/* <tr>
-              <td colSpan="2" className="foodCaption">
-                (per 100 g)
-              </td>
-            </tr> */}
+            <tr>
+              {nutrientData.ingredients && <td colSpan="5" className="foodIngredients">Ingredients: {sentenceCase(nutrientData.ingredients)}</td>}
+            </tr>
           </thead>
           <tbody>
             {nutrientData.foodNutrients

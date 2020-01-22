@@ -194,6 +194,14 @@ nav ul li {
   color: lightgray;
 }
 
+.tileDetailTitle {
+  width: 100%;
+}
+
+.tileDetailFavorite {
+  vertical-align: top;
+}
+
 .favoriteButton {
   background-color: transparent;
   outline: none;
