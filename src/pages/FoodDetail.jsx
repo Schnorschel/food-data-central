@@ -2,6 +2,20 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import config from '../config'
 
+// prettier-ignore
+const nutrientOrder = [
+  'Water','Energy', 'Protein', 'Total lipid (fat)', 'Carbohydrate, by difference', 'Fiber, total dietary',
+  'Sugars, total including NLEA', 'Calcium, Ca', 'Iron, Fe', 'Magnesium, Mg', 'Phosphorus, P', 'Potassium, K', 
+  'Sodium, Na', 'Zinc, Zn', 'Copper, Cu', 'Selenium, Se', 'Vitamin C, total ascorbic acid', 'Thiamin', 
+  'Riboflavin', 'Niacin', 'Vitamin B-6', 'Folate, total', 'Folic acid', 'Folate, food', 'Folate, DFE', 
+  'Choline, total', 'Vitamin B-12', 'Vitamin B-12, added', 'Vitamin A, RAE', 'Retinol', 'Carotene, beta', 
+  'Carotene, alpha', 'Cryptoxanthin, beta', 'Lycopene', 'Lutein + zeaxanthin', 'Vitamin E (alpha-tocopherol)', 
+  'Vitamin E, added', 'Vitamin D (D2 + D3)', 'Vitamin K (phylloquinone)', 'Fatty acids, total saturated', '4:0', 
+  '6:0', '8:0', '10:0', '12:0', '14:0', '16:0', '18:0', 'Fatty acids, total monounsaturated', '16:1', '18:1', 
+  '20:1', '22:1', 'Fatty acids, total polyunsaturated', '18:2', '18:3', '18:4', '20:4', '20:5 n-3 (EPA)', 
+  '22:5 n-3 (DPA)', '22:6 n-3 (DHA)', 'Cholesterol', 'Alcohol, ethyl', 'Caffeine', 'Theobromine'
+]
+
 const FoodDetail = props => {
   const [nutrientData, setNutrientData] = useState()
 
@@ -46,6 +60,10 @@ const FoodDetail = props => {
           <tbody>
             {nutrientData.foodNutrients
               .filter(n => !isNaN(n.amount))
+              .sort((a, b) =>
+                (nutrientOrder.indexOf(a.nutrient.name) === -1 ? 99 : nutrientOrder.indexOf(a.nutrient.name)) -
+                (nutrientOrder.indexOf(b.nutrient.name) === -1 ? 99 : nutrientOrder.indexOf(b.nutrient.name))
+              )
               .map((nutrient, index) => {
                 return (
                   <tr key={index}>

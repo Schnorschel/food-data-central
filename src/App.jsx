@@ -20,6 +20,19 @@ const App = () => {
   const [currSearchCount, setCurrSearchCount] = useState(0)
   const [gUser, setGUser] = useState(null)
 
+  const currentTime = new Date()
+
+  // prettier-ignore
+  const timeOfDay = (dateTime) => {
+    const hours = dateTime.getHours()
+    switch (true) {
+      case hours < 12: return 'Morning'
+      case hours < 18: return 'Afternoon'
+      case hours < 24: return 'Evening'
+      default: return 'Day'
+    }
+  }
+
   useEffect(() => {
     console.log(`searchTerm: ${searchTerm}`)
   }, [searchTerm])
@@ -35,7 +48,8 @@ const App = () => {
           <h1 className="siteHeader">FoodData Central</h1>
           <nav>
             <ul>
-              {gUser && gUser.username && <li>{gUser.username}</li>}
+              {/* {currentTime.toLocaleString()} */}
+              {gUser && gUser.fullName && <li>Good {timeOfDay(currentTime)}, {gUser.fullName}</li>}
               <li><Link to="/">Home</Link></li>
               {gUser && gUser.username && <li><Link to="/Favorites">Favorites</Link></li>}
               {gUser && gUser.username ? <li><Link to="/Logout/u">Logout</Link></li> : <li><Link to="/Login/s">Login</Link></li>}
