@@ -137,6 +137,7 @@ const FoodSearch = props => {
     e.persist()
     const val = e.target.value
     setCurrentPageNumber(val)
+    console.log('About to go to page: ' + val)
     setPageChange(true)
     // getFoodData(val)
   }
@@ -152,7 +153,7 @@ const FoodSearch = props => {
   // }
 
   useEffect(() => {
-    console.log('Initiate search in FoodSearch')
+    console.log('Initiate search in FoodSearch.jsx')
     getFoodData(1)
   }, [
     props.match.params.SearchTerm,
@@ -237,7 +238,7 @@ const FoodSearch = props => {
   return (
     // prettier-ignore
     <section className="searchMain">
-      {pageChange ? <Redirect to={`/Search/${props.match.params.SearchTerm}/${props.match.params.RequireAllWords}/${currentPageNumber}`} /> : null}
+      {pageChange ? <Redirect to={`/Search/${props.match.params.SearchTerm}/${props.match.params.RequireAllWords}/${currentPageNumber}/${props.match.params.Rnd}`} /> : null}
       {typeof noOfResults === 'undefined' ? '' : noOfResults > 0 ? <section className="resultStats">{noOfResults} result{plurify(noOfResults)} {noOfResultPages === 1 ? 'on' : 'across'} {noOfResultPages} page{plurify(noOfResultPages)}{noOfResultPages > 200 ? ', accessing first 200 pages' : null}</section> : 'No results'}
       {typeof currentPageNumber !== 'undefined' && currentPageNumber > 0  && <PageSelector currentPage={currentPageNumber} allPages={Math.min(noOfResultPages,200)} handleButtonClick={updatePageNumber} />}
       {/* prettier-ignore */}

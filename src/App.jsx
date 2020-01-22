@@ -10,6 +10,7 @@ import Logout from './pages/Logout'
 import Signup from './pages/Signup'
 import NotFound from './pages/NotFound'
 import { UserContext } from './UserContext'
+import config from './config'
 
 // prettier-ignore
 const App = () => {
@@ -39,6 +40,8 @@ const App = () => {
 
   useEffect(() => {
     console.log(`searchNow: ${currSearchCount}`)
+    console.log('process.env:')
+    console.dir(process.env)
   }, [currSearchCount])
 
   return (
@@ -49,6 +52,7 @@ const App = () => {
           <nav>
             <ul>
               {/* {currentTime.toLocaleString()} */}
+              {/* {`Environment: ${config.env}` } */}
               {gUser && gUser.fullName && <li>Good {timeOfDay(currentTime)}, {gUser.fullName}</li>}
               <li><Link to="/">Home</Link></li>
               {gUser && gUser.username && <li><Link to="/Favorites">Favorites</Link></li>}

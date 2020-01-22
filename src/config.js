@@ -5,4 +5,7 @@ const config = {
   apiAuthEP: '/auth',
 }
 
+if (process.env.NODE_ENV.toLowerCase() === 'production') {
+  config.apiServer = 'https://food-data-central.herokuapp.com'
+}
 export default config
