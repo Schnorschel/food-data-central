@@ -70,7 +70,7 @@ const FoodTile = props => {
   // prettier-ignore
   return <div className="foodTilesCont">
     {props.foodData && props.foodData.map((fd, i) => {
-      return <section className="foodTile" key={i}><p>{props.uLoggedIn && (<button id={i} fdcid={fd.fdcId} key={i} onClick={props.handleFavoriteClick} className={(props.favorites.indexOf(fd.fdcId)>-1 ? 'black' : 'lightgray').concat(' favoriteButton')} title="Set/reset as a favorite">{fav}</button>)} {(props.currentPageNumber -1) * 50 + (i+1)}. <Link to={`/foodDetail/${fd.fdcId}`}>{quietPlease(fd.description)}</Link></p> 
+      return <section className="foodTile" key={i}><p>{props.uLoggedIn && (<button id={i} fdcid={fd.fdcId} key={i} onClick={props.handleFavoriteClick} className={(props.favorites.indexOf(fd.fdcId)>-1 ? 'favorited' : 'unfavorited').concat(' favoriteButton')} title="Set/reset as a favorite">{fav}</button>)} {(props.currentPageNumber -1) * 50 + (i+1)}. <Link to={`/foodDetail/${fd.fdcId}`}>{quietPlease(fd.description)}</Link></p> 
                 {fd.gtinUpc && <p>GTIN/UPC: {fd.gtinUpc}</p>}
                 {fd.brandOwner && <p>Brand: {quietPlease(fd.brandOwner)}</p>}
                 {fd.ingredients && <p>Ingredients: {firstXWords(sentenceCase(fd.ingredients), 3, ', ')}</p>}

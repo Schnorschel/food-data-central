@@ -8,17 +8,14 @@ import { UserContext } from '../UserContext'
 
 const FoodSearch = props => {
   const { gUser, setGUser } = useContext(UserContext)
-  const [searchTerm, setSearchTerm] = useState()
   const [foodData, setFoodData] = useState([])
-  const [foodDetailData, setFoodDetailData] = useState()
   // prettier-ignore
   const [currentPageNumber, setCurrentPageNumber] = useState(props.match.params.PageNum)
   const [noOfResults, setNoOfResults] = useState()
   const [noOfResultPages, setNoOfResultPages] = useState()
-  const [database, setDatabase] = useState('All')
   const [pageChange, setPageChange] = useState(false)
   const [favorites, setFavorites] = useState()
-  const [favoriteData, setFavoriteData] = useState()
+  // const [favoriteData, setFavoriteData] = useState()
 
   // prettier-ignore
   const getFoodData = async p => {
@@ -70,7 +67,7 @@ const FoodSearch = props => {
   // Get the favorite data for the currently logged-in user from the back end and store it in the {favorites} hook variable
   const getFavorites = async () => {
     let resp
-    const apiUrl = `${config.apiServer}${config.apiFavoriteEP}/user/Favorites`
+    const apiUrl = `${config.apiServer}${config.apiFavoriteEP}/user/favorites`
     try {
       console.log(`Submitting GET Request to ${apiUrl} with Authorization header: Bearer ${gUser.token}`)
       resp = await axios.get(apiUrl, { headers: { Authorization: `Bearer ${gUser.token}` }, })
@@ -85,7 +82,7 @@ const FoodSearch = props => {
       // console.dir(resp.data.userFavorite)
       // setFavorites(resp.data.userFavorite.map(el => el.favorite.fdcId))
       // setFavorites(resp.data.userFavorite)
-      setFavoriteData(resp.data.userFavorite)
+      // setFavoriteData(resp.data.userFavorite)
       const tFav = { Id: [], fdcId: [] }
       tFav.Id = resp.data.userFavorite.map(el => el.favorite.id)
       tFav.fdcId = resp.data.userFavorite.map(el => el.favorite.fdcId)
@@ -144,15 +141,15 @@ const FoodSearch = props => {
     // getFoodData(val)
   }
 
-  const handleNewSearch = () => {
-    setCurrentPageNumber(1)
-    getFoodData(1)
-  }
+  // const handleNewSearch = () => {
+  //   setCurrentPageNumber(1)
+  //   getFoodData(1)
+  // }
 
-  const updateSearchTerm = e => {
-    const val = e.target.value
-    setSearchTerm(val)
-  }
+  // const updateSearchTerm = e => {
+  //   const val = e.target.value
+  //   setSearchTerm(val)
+  // }
 
   useEffect(() => {
     console.log('Initiate search in FoodSearch')

@@ -182,7 +182,7 @@ nav ul li {
   color: red;
 }
 
-.black {
+.favorited {
   color: black;
 }
 
@@ -190,7 +190,7 @@ nav ul li {
   color: red;
 }
 
-.lightgray {
+.unfavorited {
   color: lightgray;
 }
 
