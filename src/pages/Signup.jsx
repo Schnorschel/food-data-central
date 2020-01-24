@@ -7,6 +7,7 @@ import { UserContext } from '../UserContext'
 // prettier-ignore
 const Signup = () => {
   const { gUser, setGUser } = useContext(UserContext)
+  const [successfullySignedUp, setSuccessfullySignedUp] = useState(false)
   const [user, setUser] = useState({})
   const [errMsg, setErrMsg] = useState()
   const [repeatPW, setRepeatPW] = useState()
@@ -44,12 +45,14 @@ const Signup = () => {
         token: resp.data.token,
         expirationTime: resp.data.expirationTime,
       })
+      setSuccessfullySignedUp(true)
     }
   }
 
   return (
     <section>
       {errMsg && (<section className="errorMsg" colSpan="2">{errMsg}</section>)}
+      {successfullySignedUp && <Redirect to={{pathname: '/Msg', state: { msg: 'Sign-up successful. You are now logged in.'}}} /> }
       <table>
         <tbody>
           <tr><td className="loginLabel">User name:</td><td><input type="text" required name="username" value={user.username} onChange={updateUser}></input></td></tr>

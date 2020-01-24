@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import config from '../config'
-import { pascalCaseExcept, sentenceCase } from '../utils'
+import { pascalCaseExcept, sentenceCase, quietPlease } from '../utils'
 
 // prettier-ignore
 // Hard-coded order of nutrients
@@ -46,7 +46,7 @@ const FoodDetail = props => {
   // prettier-ignore
   return (
     <section className="NutritionCont">
-      {nutrientData && (
+      {nutrientData ? (
         <table className="nutrientCont">
           <thead>
             <tr>
@@ -54,9 +54,9 @@ const FoodDetail = props => {
                 <span className="foodTitle">{pascalCaseExcept(nutrientData.description,1)}</span> <span className="foodCaption">(per 100 g)</span>
               </th>
             </tr>
-            <tr>
-              {nutrientData.ingredients && <td colSpan="5" className="foodIngredients">Ingredients: {sentenceCase(nutrientData.ingredients)}</td>}
-            </tr>
+            {nutrientData.brandOwner && <tr><td colSpan="5" className="foodMetaData foodIngredients">Brand: {quietPlease(nutrientData.brandOwner)}</td></tr>}
+            {nutrientData.gtinUpc && <tr><td colSpan="5" className="foodMetaData">UPC: {sentenceCase(nutrientData.gtinUpc)}</td></tr>}
+            {nutrientData.ingredients && <tr><td colSpan="5" className="foodMetaData">Ingredients: {sentenceCase(nutrientData.ingredients)}</td></tr>}
           </thead>
           <tbody>
             {nutrientData.foodNutrients
@@ -78,7 +78,7 @@ const FoodDetail = props => {
               })}
           </tbody>
         </table>
-      )}
+      ) : <section className="dataLoader">Loading data...</section>}
     </section>
   )
 }

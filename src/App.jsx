@@ -8,22 +8,21 @@ import FoodSearch from './pages/FoodSearch'
 import Favorites from './pages/Favorites'
 import Logout from './pages/Logout'
 import Signup from './pages/Signup'
+import Msg from './pages/Msg'
 import NotFound from './pages/NotFound'
 import { UserContext } from './UserContext'
-import config from './config'
 
 // prettier-ignore
 const App = () => {
   const [searchTerm, setSearchTerm] = useState()
   const [requireAllWords, setRequireAllWords] = useState('anyWord')
-  const [searchNow, setSearchNow] = useState(false)
-  const [prevSearchCount, setPrevSearchCount] = useState(0)
   const [currSearchCount, setCurrSearchCount] = useState(0)
   const [gUser, setGUser] = useState(null)
 
   const currentTime = new Date()
 
   // prettier-ignore
+  // Return the time of day based on the time passed
   const timeOfDay = (dateTime) => {
     const hours = dateTime.getHours()
     switch (true) {
@@ -48,15 +47,13 @@ const App = () => {
       <Router>
       {currSearchCount > 0 ? <Redirect key={currSearchCount} to={`/Search/${searchTerm}/${requireAllWords}/1/${currSearchCount}`} /> : null}
         <header className="rootHeader">
-          <h1 className="siteHeader">FoodData Central</h1>
+          <h1 className="siteHeader">Food Data Central</h1>
           <nav>
             <ul>
-              {/* {currentTime.toLocaleString()} */}
-              {/* {`Environment: ${config.env}` } */}
               {gUser && gUser.fullName && <li>Good {timeOfDay(currentTime)}, {gUser.fullName}</li>}
               <li><Link to="/">Home</Link></li>
               {gUser && gUser.username && <li><Link to="/Favorites">Favorites</Link></li>}
-              {gUser && gUser.username ? <li><Link to="/Logout/u">Logout</Link></li> : <li><Link to="/Login/s">Login</Link></li>}
+              {gUser && gUser.username ? <li><Link to="/Logout">Log out</Link></li> : <li><Link to="/Login">Log in</Link></li>}
               {gUser && gUser.username ? null : <li><Link to="/Signup">Sign up</Link></li>}
             </ul>
           </nav>
@@ -83,9 +80,10 @@ const App = () => {
             <Route exact path="/Favorites" component={Favorites}></Route>
             <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum/:Rnd" component={FoodSearch}></Route>
             {/* <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum" render={(props) => <FoodSearch {...props} key={currSearchCount} /> } ></Route> */}
-            <Route exact path="/Login/:purpose" component={Login}></Route>
-            <Route exact path="/Logout/:purpose" component={Logout}></Route>
+            <Route exact path="/Login" component={Login}></Route>
+            <Route exact path="/Logout" component={Logout}></Route>
             <Route exact path="/Signup" component={Signup}></Route>
+            <Route exact path="/Msg" component={Msg}></Route>
             <Route exact path="/foodDetail/:fdcId" component={FoodDetail}></Route>
           </UserContext.Provider>
             <Route path="*" component={NotFound}></Route>

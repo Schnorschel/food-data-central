@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { Redirect } from 'react-router-dom'
 import FoodTile from '../components/FoodTile'
 import { UserContext } from '../UserContext'
 import axios from 'axios'
@@ -71,13 +72,13 @@ const Favorites = () => {
 
   // prettier-ignore
   return <section className="favoritesMain">
-    <div className="previewTilesCont">
+    {gUser && gUser.username ? (<div className="previewTilesCont">
       {foodData && foodData.length > 0 ? <FoodTile foodData={foodData} 
                                                    favorites={foodData.map(el => el.fdcId)}
                                                    handleFavoriteClick={resetFavorite}
                                                    uLoggedIn={!(typeof gUser === 'undefined' || gUser === null || typeof gUser.username === 'undefined' || gUser.username === null)} 
                                                    currentPageNumber="1" /> : <section>No favorites found</section>}
-    </div>
+    </div>) : <Redirect to="/" />}
   </section>
 }
 

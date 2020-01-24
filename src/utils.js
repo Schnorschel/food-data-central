@@ -19,4 +19,22 @@ const pascalCaseExcept = (s, x) => {
     })
     .join(' ')
 }
-export { sentenceCase, pascalCaseExcept }
+
+// Converts string into PascalCase if more than half of capitals are used
+const quietPlease = str => {
+  return UpperToLowerCaseRatio(str) > 0 ? pascalCaseExcept(str, 2) : str
+}
+
+// Returns a number that expresses the ratio between the count of
+// lower and upper case letters in string s.
+// If the returned number is greater than 0, there are more upper case
+// than lower case letters, vice versa if negative.
+// prettier-ignore
+const UpperToLowerCaseRatio = (s) => {
+    return s.split('').reduce((total, letter) => {
+      return (total += letter >= 'A' && letter <= 'Z' ? 1 : 
+                       letter >= 'a' && letter <= 'z' ? -1 : 0)
+    }, 0)
+  }
+
+export { sentenceCase, pascalCaseExcept, quietPlease, UpperToLowerCaseRatio }

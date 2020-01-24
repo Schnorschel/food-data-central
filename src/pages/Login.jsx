@@ -6,7 +6,7 @@ import { UserContext } from '../UserContext'
 
 const Login = props => {
   const { gUser, setGUser } = useContext(UserContext)
-  const [successfullyCreated, setSuccessfullyCreated] = useState(false)
+  const [successfullyLoggedIn, setSuccessfullyLoggedIn] = useState(false)
   const [usernameFromApi, setUsernameFromApi] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [user, setUser] = useState({
@@ -44,12 +44,15 @@ const Login = props => {
         token: resp.data.token,
         expirationTime: resp.data.expirationTime,
       })
+      setUser({ username: '', password: '' })
+      setSuccessfullyLoggedIn(true)
       // setUsernameFromApi(resp.data.username)
       // setUser({})
     }
   }
 
-  const handleLogin = () => {
+  const handleLogin = e => {
+    e.preventDefault()
     setErrorMsg('')
     authenticateUser()
   }
@@ -66,17 +69,17 @@ const Login = props => {
 
   useEffect(() => {
     if (usernameFromApi) {
-      setSuccessfullyCreated(true)
+      setSuccessfullyLoggedIn(true)
     }
   }, [gUser])
 
   return (
     // prettier-ignore
     <section>
-      {successfullyCreated && <Redirect to="/" />}
-      {errorMsg && <section className="errorMsg">{errorMsg}</section>}
+      {successfullyLoggedIn && <Redirect to={{pathname: '/Msg', state: {msg: 'You were successfully logged in.'}}} />}
       <table>
         <tbody>
+          {errorMsg && <tr><td colSpan="2"><section className="errorMsg">{errorMsg}</section></td></tr>}
           <tr><td className="loginLabel">User Name:</td><td><input type="text" name="username" value={user.username} onChange={updateUser}></input></td></tr>
           <tr><td className="loginLabel">Password:</td><td><input type="password" required name="password" value={user.password} onChange={updateUser}></input></td></tr>
           <tr><td></td><td><button name="loginButton" onClick={handleLogin}>Log In</button></td></tr>

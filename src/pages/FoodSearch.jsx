@@ -239,7 +239,7 @@ const FoodSearch = props => {
     // prettier-ignore
     <section className="searchMain">
       {pageChange ? <Redirect to={`/Search/${props.match.params.SearchTerm}/${props.match.params.RequireAllWords}/${currentPageNumber}/${props.match.params.Rnd}`} /> : null}
-      {typeof noOfResults === 'undefined' ? '' : noOfResults > 0 ? <section className="resultStats">{noOfResults} result{plurify(noOfResults)} {noOfResultPages === 1 ? 'on' : 'across'} {noOfResultPages} page{plurify(noOfResultPages)}{noOfResultPages > 200 ? ', accessing first 200 pages' : null}</section> : 'No results'}
+      {typeof noOfResults === 'undefined' ? <section className="dataLoader">Loading data...</section> : noOfResults > 0 ? <section className="resultStats">{noOfResults} result{plurify(noOfResults)} {noOfResultPages === 1 ? 'on' : 'across'} {noOfResultPages} page{plurify(noOfResultPages)}{noOfResultPages > 200 ? ', accessing first 200 pages' : null}</section> : 'No results'}
       {typeof currentPageNumber !== 'undefined' && currentPageNumber > 0  && <PageSelector currentPage={currentPageNumber} allPages={Math.min(noOfResultPages,200)} handleButtonClick={updatePageNumber} />}
       {/* prettier-ignore */}
       <div className="previewTilesCont">
