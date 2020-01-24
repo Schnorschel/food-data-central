@@ -2,6 +2,12 @@
   font: 16px / 1 sans-serif;
 }
 
+/* White smoke: #f7f0f5
+ Desert sand: #decbb7
+ Rocket Metallic: #8f857d
+ Wenge: #5c5552
+ Old Burgundy: #433633 */
+
 html {
   height: 100%;
 }
@@ -9,6 +15,7 @@ html {
 body {
   margin: 0;
   min-height: 100%;
+  background: #8f857d;
 }
 
 * {
@@ -183,9 +190,9 @@ nav ul li a {
   text-align: center;
 }
 
-.loginLabel {
+/* .loginLabel {
   text-align: right;
-}
+} */
 
 .errorMsg {
   color: red;
@@ -217,6 +224,71 @@ nav ul li a {
   border: none;
   padding: 0;
   margin: 0;
+}
+
+.formBox {
+  width: 400px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #433633;
+  text-align: center;
+  border-radius: 24px;
+}
+
+.formBox input[type='text'],
+.formBox input[type='password'] {
+  border: 2px solid #8f857d;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  padding: 10px 14px;
+  width: 200px;
+  outline: none;
+  color: #f7f0f5;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+
+.formBox input[type='submit'] {
+  border: 2px solid #decbb7;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  padding: 10px 40px;
+  outline: none;
+  color: #f7f0f5;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.formBox input[type='submit']:hover {
+  background: #decbb7;
+  color: #433633;
+}
+
+.formBox input[type='text']:focus,
+.formBox input[type='password']:focus {
+  width: 280px;
+  border-color: #decbb7;
+}
+
+.signupBox input[type='text'],
+.signupBox input[type='password'],
+.signupBox input[type='submit'] {
+  /* margin: 0; */
+  margin: 5px auto;
+}
+
+.loginLabel {
+  color: #f7f0f5;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 @media (min-width: 400px) and (max-width: 799px) {

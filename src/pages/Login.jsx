@@ -75,14 +75,15 @@ const Login = props => {
 
   return (
     // prettier-ignore
-    <section>
+    <section className="loginContainer">
       {successfullyLoggedIn && <Redirect to={{pathname: '/Msg', state: {msg: 'You were successfully logged in.'}}} />}
-      <table>
+      <table className="loginBox formBox">
         <tbody>
-          {errorMsg && <tr><td colSpan="2"><section className="errorMsg">{errorMsg}</section></td></tr>}
-          <tr><td className="loginLabel">User Name:</td><td><input type="text" name="username" value={user.username} onChange={updateUser}></input></td></tr>
-          <tr><td className="loginLabel">Password:</td><td><input type="password" required name="password" value={user.password} onChange={updateUser}></input></td></tr>
-          <tr><td></td><td><button name="loginButton" onClick={handleLogin}>Log In</button></td></tr>
+          <tr><td className="loginLabel">Login</td></tr>
+          {errorMsg && <tr><td><section className="errorMsg">{errorMsg}</section></td></tr>}
+          <tr><td><input placeholder="Username" type="text" name="username" value={user.username} onChange={updateUser}></input></td></tr>
+          <tr><td><input placeholder="Password" type="password" required name="password" value={user.password} onChange={updateUser}></input></td></tr>
+          <tr><td><input type="submit" name="loginButton" onClick={handleLogin} value="Log In"></input></td></tr>
         </tbody>
        </table>
 

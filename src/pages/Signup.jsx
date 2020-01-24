@@ -53,14 +53,15 @@ const Signup = () => {
     <section>
       {errMsg && (<section className="errorMsg" colSpan="2">{errMsg}</section>)}
       {successfullySignedUp && <Redirect to={{pathname: '/Msg', state: { msg: 'Sign-up successful. You are now logged in.'}}} /> }
-      <table>
+      <table className="signupBox formBox">
         <tbody>
-          <tr><td className="loginLabel">User name:</td><td><input type="text" required name="username" value={user.username} onChange={updateUser}></input></td></tr>
-          <tr><td className="loginLabel">Password:</td><td><input type="password" required name="password" value={user.password} onChange={updateUser}></input></td></tr>
-          <tr><td className="loginLabel">Repeat password:</td><td><input type="password" required name="repeatPassword" value={repeatPW} onChange={e => {setErrMsg(''); setRepeatPW(e.target.value)}}></input></td></tr>
-          <tr><td className="loginLabel">Name:</td><td><input type="text" required name="fullName" value={user.fullName} onChange={updateUser}></input></td></tr>
-          <tr><td className="loginLabel">Email:</td><td><input type="text" required name="email" value={user.email} onChange={updateUser}></input></td></tr>
-          <tr><td></td><td><button className="button signupButton" onClick={submitForm}>Sign Up</button></td></tr>
+          <tr><td className="loginLabel">Sign Up</td></tr>
+          <tr><td><input placeholder="Username" type="text" required name="username" value={user.username} onChange={updateUser}></input></td></tr>
+          <tr><td><input placeholder="Password" type="password" required name="password" value={user.password} onChange={updateUser}></input></td></tr>
+          <tr><td><input placeholder="Repeat password" type="password" required name="repeatPassword" value={repeatPW} onChange={e => {setErrMsg(''); setRepeatPW(e.target.value)}}></input></td></tr>
+          <tr><td><input placeholder="Name" type="text" required name="fullName" value={user.fullName} onChange={updateUser}></input></td></tr>
+          <tr><td><input placeholder="Email" type="text" required name="email" value={user.email} onChange={updateUser}></input></td></tr>
+          <tr><td><input type="submit" className="button signupButton" onClick={submitForm} value="Sign Up"></input></td></tr>
         </tbody>
       </table>
     </section>
