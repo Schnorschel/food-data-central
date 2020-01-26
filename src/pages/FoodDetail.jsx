@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import config from '../config'
 import { pascalCaseExcept, sentenceCase, quietPlease } from '../utils'
+import loadSpinner from '../images/LoadingSpinner_DesertSand.gif'
 
 // prettier-ignore
 // Hard-coded order of nutrients
@@ -78,7 +79,7 @@ const FoodDetail = props => {
               })}
           </tbody>
         </table>
-      ) : <section className="dataLoader">Loading data...</section>}
+      ) : <section className="dataLoader"><img src={loadSpinner} alt="Loading data..." /></section>}
     </section>
   )
 }

@@ -15,7 +15,8 @@ html {
 body {
   margin: 0;
   min-height: 100%;
-  background: #8f857d;
+  background: #decbb7;
+  color: #433633;
 }
 
 * {
@@ -24,6 +25,14 @@ body {
 
 .mainContainer {
   margin-left: 1%;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.subTitle {
+  font-size: 1rem;
 }
 
 h1 {
@@ -35,15 +44,24 @@ p {
   margin-top: 2px;
 }
 
-p:first-child {
+/* p:first-child {
   margin: 0;
   font-weight: bolder;
-}
+} */
 
 .searchTermCont {
   width: 100%;
   margin-left: 1%;
   margin-bottom: 1%;
+}
+
+.searchTermCont input[type='text'] {
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.searchTermCont input[type='checkbox'] {
+  border-radius: 5px;
 }
 
 nav {
@@ -64,6 +82,12 @@ nav ul li {
 
 nav ul li a {
   white-space: nowrap;
+  text-decoration: none;
+  color: #8f857d;
+}
+
+nav ul li a:hover {
+  color: #433633;
 }
 
 .rootHeader {
@@ -199,7 +223,7 @@ nav ul li a {
 }
 
 .favorited {
-  color: black;
+  color: #433633;
 }
 
 .red {
@@ -207,7 +231,7 @@ nav ul li a {
 }
 
 .unfavorited {
-  color: lightgray;
+  color: #8f857d;
 }
 
 .tileDetailTitle {
@@ -230,7 +254,7 @@ nav ul li a {
   width: 400px;
   padding: 40px;
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #433633;
@@ -282,13 +306,35 @@ nav ul li a {
 .signupBox input[type='password'],
 .signupBox input[type='submit'] {
   /* margin: 0; */
-  margin: 5px auto;
+  margin: 2px auto;
 }
 
 .loginLabel {
   color: #f7f0f5;
   text-transform: uppercase;
   font-weight: 500;
+}
+
+.mainMsgContainer {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dataLoader {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bigMessage {
+  font-size: 1.5rem;
+}
+
+.messageFont {
+  color: #433633;
 }
 
 @media (min-width: 400px) and (max-width: 799px) {

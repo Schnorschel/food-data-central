@@ -79,7 +79,7 @@ const Login = props => {
       {successfullyLoggedIn && <Redirect to={{pathname: '/Msg', state: {msg: 'You were successfully logged in.'}}} />}
       <table className="loginBox formBox">
         <tbody>
-          <tr><td className="loginLabel">Login</td></tr>
+          {/* <tr><td className="loginLabel">Login</td></tr> */}
           {errorMsg && <tr><td><section className="errorMsg">{errorMsg}</section></td></tr>}
           <tr><td><input placeholder="Username" type="text" name="username" value={user.username} onChange={updateUser}></input></td></tr>
           <tr><td><input placeholder="Password" type="password" required name="password" value={user.password} onChange={updateUser}></input></td></tr>

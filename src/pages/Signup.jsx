@@ -55,7 +55,7 @@ const Signup = () => {
       {successfullySignedUp && <Redirect to={{pathname: '/Msg', state: { msg: 'Sign-up successful. You are now logged in.'}}} /> }
       <table className="signupBox formBox">
         <tbody>
-          <tr><td className="loginLabel">Sign Up</td></tr>
+          {/* <tr><td className="loginLabel">Sign Up</td></tr> */}
           <tr><td><input placeholder="Username" type="text" required name="username" value={user.username} onChange={updateUser}></input></td></tr>
           <tr><td><input placeholder="Password" type="password" required name="password" value={user.password} onChange={updateUser}></input></td></tr>
           <tr><td><input placeholder="Repeat password" type="password" required name="repeatPassword" value={repeatPW} onChange={e => {setErrMsg(''); setRepeatPW(e.target.value)}}></input></td></tr>
