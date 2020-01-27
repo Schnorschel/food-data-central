@@ -37,4 +37,36 @@ const UpperToLowerCaseRatio = (s) => {
     }, 0)
   }
 
-export { sentenceCase, pascalCaseExcept, quietPlease, UpperToLowerCaseRatio }
+// Convert a (decimal) number to a string, append '.0' if number is whole
+const decimalToString = decimal => {
+  let sDec = decimal.toString()
+  if (!sDec.includes('.')) sDec += '.0'
+  return sDec.split('.')
+}
+
+const plurify = n => {
+  return n === 1 ? '' : 's'
+}
+
+// Crops string of words delimited with delim after x words and
+// adds ellipsis (...) at the end if there is more content
+const firstXWords = (str, x, delim) => {
+  return (
+    str
+      .split(delim)
+      .filter((el, i) => {
+        return i < x
+      })
+      .join(delim) + (str.split(delim).length > x ? delim + '...' : '')
+  )
+}
+
+export {
+  sentenceCase,
+  pascalCaseExcept,
+  quietPlease,
+  UpperToLowerCaseRatio,
+  decimalToString,
+  plurify,
+  firstXWords,
+}

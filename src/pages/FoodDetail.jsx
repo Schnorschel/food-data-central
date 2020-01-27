@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import config from '../config'
-import { pascalCaseExcept, sentenceCase, quietPlease } from '../utils'
+// prettier-ignore
+import { pascalCaseExcept, sentenceCase, quietPlease, decimalToString, } from '../utils'
 import loadSpinner from '../images/LoadingSpinner_DesertSand.gif'
 
 // prettier-ignore
@@ -37,12 +38,6 @@ const FoodDetail = props => {
   useEffect(() => {
     getNutrientData()
   }, [])
-
-  const decimalToString = decimal => {
-    let sDec = decimal.toString()
-    if (!sDec.includes('.')) sDec += '.0'
-    return sDec.split('.')
-  }
 
   // prettier-ignore
   return (

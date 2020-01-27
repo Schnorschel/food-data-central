@@ -77,7 +77,8 @@ const Favorites = () => {
                                                    favorites={foodData.map(el => el.fdcId)}
                                                    handleFavoriteClick={resetFavorite}
                                                    uLoggedIn={!(typeof gUser === 'undefined' || gUser === null || typeof gUser.username === 'undefined' || gUser.username === null)} 
-                                                   currentPageNumber="1" /> : <section>No favorites found</section>}
+                                                   currentPageNumber="1" 
+                                                   origin="favorites"/> : <section>No favorites found</section>}
     </div>) : <Redirect to="/" />}
   </section>
 }

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 // prettier-ignore
-import { sentenceCase, pascalCaseExcept, quietPlease, UpperToLowerCaseRatio, } from '../utils'
+import { sentenceCase, quietPlease, firstXWords} from '../utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faBookmark } from '@fortawesome/free-solid-svg-icons'
 
@@ -32,27 +32,20 @@ const FoodTile = props => {
   //     .join(' ')
   // }
 
-  // Crops string of words delimited with delim after x words and
-  // adds ellipsis (...) at the end if there is more content
-  const firstXWords = (str, x, delim) => {
-    return (
-      str
-        .split(delim)
-        .filter((el, i) => {
-          return i < x
-        })
-        .join(delim) + (str.split(delim).length > x ? delim + '...' : '')
-    )
-  }
+  useEffect(() => {
+    console.log('props.location:')
+    console.dir(props)
+  }, [props])
+
   // prettier-ignore
   return <div className="foodTilesCont">
     {props.foodData && props.foodData.map((fd, i) => {
-      return <section className="foodTile" key={i}>
+      return <section className={props.handleFavoriteClick} className={(props.favorites.indexOf(fd.fdcId)>-1 ? 'favorited' : 'unfavorited').concat(' foodTile')} key={i}>
       <table>
         <tbody>
           <tr>
             <td className="tileDetailTitle">{(props.currentPageNumber -1) * 50 + (i+1)}. <Link to={`/foodDetail/${fd.fdcId}`}>{quietPlease(fd.description)}</Link></td>
-            <td className="tileDetailFavorite">{props.uLoggedIn ? (<button id={i} fdcid={fd.fdcId} key={i} onClick={props.handleFavoriteClick} className={(props.favorites.indexOf(fd.fdcId)>-1 ? 'favorited' : 'unfavorited').concat(' favoriteButton')} title="Set/delete as a favorite">{fav}</button>) : null}</td>
+            <td className="tileDetailFavorite">{props.uLoggedIn ? (<button id={i} fdcid={fd.fdcId} key={i} onClick={props.handleFavoriteClick} className={(props.favorites.indexOf(fd.fdcId)>-1 ? 'favorited' : 'unfavorited').concat(' favoriteButton')} title={(props.origin==='favorites' ? 'Delete' : 'Set/delete as a') + ' favorite'}>{fav}</button>) : null}</td>
           </tr>
           {fd.gtinUpc ? (<tr> <td colSpan="2">UPC: {fd.gtinUpc}</td></tr>) : null}
           {fd.brandOwner ? (<tr><td colSpan="2">Brand: {quietPlease(fd.brandOwner)}</td></tr>) : null}

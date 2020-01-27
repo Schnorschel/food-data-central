@@ -6,6 +6,7 @@ import PageSelector from '../components/PageSelector'
 import config from '../config'
 import { UserContext } from '../UserContext'
 import loadSpinner from '../images/LoadingSpinner_DesertSand.gif'
+import { plurify } from '../utils'
 
 const FoodSearch = props => {
   const { gUser, setGUser } = useContext(UserContext)
@@ -158,10 +159,11 @@ const FoodSearch = props => {
     getFoodData(1)
   }, [
     props.match.params.SearchTerm,
-    props.match.params.RequireAllWords,
+    // props.match.params.RequireAllWords,
     props.match.params.PageNum,
   ])
 
+  // Create or delete the favorite
   // prettier-ignore
   const setResetFavorite = async e => {
     e.persist()
@@ -232,10 +234,6 @@ const FoodSearch = props => {
   //   console.log({ requireAllWords })
   // }, [requireAllWords])
 
-  const plurify = n => {
-    return n === 1 ? '' : 's'
-  }
-
   return (
     // prettier-ignore
     <section className="searchMain">
@@ -248,7 +246,8 @@ const FoodSearch = props => {
                   favorites={favorites ? favorites.fdcId : []} 
                   handleFavoriteClick={setResetFavorite}
                   uLoggedIn={!(typeof gUser === 'undefined' || gUser === null || typeof gUser.username === 'undefined' || gUser.username === null)} 
-                  currentPageNumber={currentPageNumber} />
+                  currentPageNumber={currentPageNumber} 
+                  origin="search"/>
       </div>
       {typeof currentPageNumber !== 'undefined' && currentPageNumber > 0 && <PageSelector currentPage={currentPageNumber} allPages={Math.min(noOfResultPages, 200)} handleButtonClick={updatePageNumber} />}
     </section>

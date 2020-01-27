@@ -126,6 +126,10 @@ nav ul li a:hover {
   margin: 0 1% 1%;
 }
 
+.foodTilesCont .favorited {
+  background-color: #f7f0f5;
+}
+
 .PageSelectorCont {
   display: flex;
   flex-wrap: wrap;
@@ -222,7 +226,7 @@ nav ul li a:hover {
   color: red;
 }
 
-.favorited {
+button.favorited {
   color: #433633;
 }
 
@@ -230,7 +234,7 @@ nav ul li a:hover {
   color: red;
 }
 
-.unfavorited {
+button.unfavorited {
   color: #8f857d;
 }
 
