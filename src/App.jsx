@@ -45,16 +45,17 @@ const App = () => {
 
   return (
       <Router>
-      {currSearchCount > 0 ? <Redirect key={currSearchCount} to={`/Search/${searchTerm}/${requireAllWords}/1/${currSearchCount}`} /> : null}
+        {/* /${currSearchCount} */}
+      {currSearchCount > 0 ? <Redirect key={currSearchCount} to={`/Search/${searchTerm}/${requireAllWords}/1`} /> : null}
         <header className="rootHeader">
-          <h1 className="siteHeader">Food Data Central</h1>
+          <h1 className="siteHeader"><span className="together">Food Data</span> Central</h1>
           <nav>
             <ul>
-              {gUser && gUser.fullName && <li>Good {timeOfDay(currentTime)}, {gUser.fullName}</li>}
               <li><Link to="/">Home</Link></li>
               {gUser && gUser.username && <li><Link to="/Favorites">Favorites</Link></li>}
               {gUser && gUser.username ? <li><Link to="/Logout">Log out</Link></li> : <li><Link to="/Login">Log in</Link></li>}
               {gUser && gUser.username ? null : <li><Link to="/Signup">Sign up</Link></li>}
+              {gUser && gUser.fullName && <li className="userMeeting">Good {timeOfDay(currentTime)}, {gUser.fullName}</li>}
             </ul>
           </nav>
           </header>
@@ -78,8 +79,8 @@ const App = () => {
           <UserContext.Provider value={{gUser, setGUser}}>
             <Route exact path="/" component={HomePage}></Route>
             <Route exact path="/Favorites" component={Favorites}></Route>
-            <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum/:Rnd" component={FoodSearch}></Route>
-            {/* <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum" render={(props) => <FoodSearch {...props} key={currSearchCount} /> } ></Route> */}
+            {/* <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum/:Rnd" component={FoodSearch}></Route> */}
+            <Route exact path="/Search/:SearchTerm/:RequireAllWords/:PageNum" render={(props) => <FoodSearch {...props} key={currSearchCount} /> } ></Route>
             <Route exact path="/Login" component={Login}></Route>
             <Route exact path="/Logout" component={Logout}></Route>
             <Route exact path="/Signup" component={Signup}></Route>

@@ -10,11 +10,11 @@ const HomePage = () => {
         <a href="https://fdc.nal.usda.gov" target="_blank">
           USDA
         </a>{' '}
-        (US Department of Agriculture).
+        (US Department of Agriculture)
       </p>
       <p className="subTitle">
         Search anonymously or sign up and log in to save your favorite food
-        items.
+        items
       </p>
     </section>
   )
